@@ -3,20 +3,25 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { quotes, colors } from './rand-arrays.js';
 
+const twitterURLBase = 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=';
+
 const getRandomArrayElement = (arr) => {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-const twitterURLBase = 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=';
+const updateTheme = () => {
+  const oldTheme = document.documentElement.style.getPropertyValue('--theme');
+  document.documentElement.style.setProperty('--theme', getRandomArrayElement(colors.filter(color => color !== oldTheme)));
+}
 
 
 class QuoteBox extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      themeColor: getRandomArrayElement(colors),
       quoteData: getRandomArrayElement(quotes),
     }
+    document.documentElement.style.setProperty('--theme', getRandomArrayElement(colors));
     this.onNewQuoteClick = this.onNewQuoteClick.bind(this);
     this.getTwitterURL = this.getTwitterURL.bind(this);
   }
@@ -27,15 +32,15 @@ class QuoteBox extends React.Component {
 
   onNewQuoteClick() {
     this.setState({
-      themeColor: getRandomArrayElement(colors),
       quoteData: getRandomArrayElement(quotes)
     });
+    updateTheme();
   }
 
   render() {
     return (
       <div id="quote-box">
-        <div id="text">{this.state.quoteData.quote}</div>
+        <div id="text"><i class="fa fa-quote-left"></i> {this.state.quoteData.quote}</div>
         <div id="author">{this.state.quoteData.author}</div>
         <a id="tweet-quote" rel="noreferrer" target="_blank" href={this.getTwitterURL()}>
           <i className="fa fa-twitter"></i>
