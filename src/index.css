@@ -1,20 +1,20 @@
 #wrapper {
-  border: 2px solid black;
+  border: 0px solid black;
 }
 #quote-box {
-  border: 2px solid red;
+  border: 0px solid black;
   width: 25%;
   margin: auto;
 }
 #text {
-  border: 2px solid blue;
+  border: 0px solid black;
 }
 #author {
-  border: 2px solid green;
+  border: 0px solid black;
 }
-#new-quote-container {
-  border: 2px solid yellow;
+#new-quote {
+  border: 0px solid black;
 }
-#tweet-quote-container {
-  border: 2px solid orange;
+#tweet-quote {
+  border: 0px solid black;
 }
