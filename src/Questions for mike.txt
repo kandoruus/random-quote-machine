@@ -1,0 +1,2 @@
+how is index.css being imported into index.html?
+  I was going to use <link rel="stylesheet" href="index.css" but somehow it is already being pulled in
