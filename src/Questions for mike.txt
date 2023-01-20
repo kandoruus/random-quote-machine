@@ -1,4 +1,4 @@
 how is index.css being imported into index.html?
-  I was going to use <link rel="stylesheet" href="index.css" /> but somehow it is already being pulled in
+  I was going to use <link rel="stylesheet" href="index.css" /> but somehow it is already being pulled in (then it stopped????)
 
 what is source control doing when not linked to git hub? accidently delete project with it (better now than later).
