@@ -1,1 +1,11 @@
 what is source control doing when not linked to git hub? accidently delete project with it (better now than later).
+
+
+practice using api - do in two ways (1 using js fetch method (a using async await, b promises), 2 use library axios)
+import json into react Component
+
+redo create-react-app find flag to make it typescript project
+
+.jsx for react files
+
+why is DOM manipulation bad? async related?
