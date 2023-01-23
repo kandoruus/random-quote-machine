@@ -41,11 +41,13 @@ class QuoteBox extends React.Component {
     return (
       <div id="quote-box">
         <div id="text"><i class="fa fa-quote-left"></i> {this.state.quoteData.quote}</div>
-        <div id="author">{this.state.quoteData.author}</div>
-        <a id="tweet-quote" rel="noreferrer" target="_blank" href={this.getTwitterURL()}>
-          <i className="fa fa-twitter"></i>
-        </a>
-        <button id="new-quote" onClick={this.onNewQuoteClick}>New Quote</button>
+        <div id="author">- {this.state.quoteData.author}</div>
+        <div id="buttons">
+          <a id="tweet-quote" rel="noreferrer" target="_blank" href={this.getTwitterURL()}>
+            <i className="fa fa-twitter"></i>
+          </a>
+          <button id="new-quote" onClick={this.onNewQuoteClick}>New Quote</button>
+        </div>
       </div>
     );
   }

@@ -23,24 +23,33 @@ body {
 #text {
   border: 0px solid black;
   color: var(--theme);
-  height: 5em;
+  height: 8em;
+  font-size: 2em;
 }
 #author {
   border: 0px solid black;
   color: var(--theme);
+  text-align: right;
+  font-size: 1.2em;
+}
+#buttons {
+  border: 2px solid black;
+  display: flex;
+  justify-content: first baseline;
+  align-items: center;
 }
 #new-quote {
   border-radius: 3px;
   border: 0px solid black;
   color: white;
   background-color: var(--theme);
+  font-size: 1.2em;
+  height: 1.9em;
 }
 #tweet-quote {
   border-radius: 3px;
   border: 0px solid black;
   color: white;
   background-color: var(--theme);
-}
-#fancy-quote {
-  font-size: 20em;
+  font-size: 2em;
 }
