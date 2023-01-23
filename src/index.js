@@ -19,15 +19,16 @@ class QuoteBox extends React.Component {
       quoteData: getNewRandomArrayElement(quotes, null),
       themeColor: getNewRandomArrayElement(colors, null),
       textStyleClass: "animatedText fade",
-      backgroundStyleClass: "animatedBackground"
-    }
+      backgroundStyleClass: "animatedBackground",
+      buttonEnabled: true
+    };
     this.onNewQuoteClick = this.onNewQuoteClick.bind(this);
     this.getTwitterURL = this.getTwitterURL.bind(this);
     this.onAnimationEnd = this.onAnimationEnd.bind(this);
   }
 
   onAnimationEnd() {
-    this.setState({textStyleClass: "animatedText"});
+    this.setState({textStyleClass: "animatedText", buttonEnabled: true});
   };
 
   getTwitterURL() {
@@ -35,7 +36,12 @@ class QuoteBox extends React.Component {
   }
 
   onNewQuoteClick() {
-    this.setState(oldState => ({ quoteData: getNewRandomArrayElement(quotes, oldState.quoteData), themeColor: getNewRandomArrayElement(colors, oldState.themeColor), textStyleClass: "animatedText fade"}));
+    this.setState(oldState => ({
+      quoteData: getNewRandomArrayElement(quotes, oldState.quoteData),
+      themeColor: getNewRandomArrayElement(colors, oldState.themeColor),
+      textStyleClass: "animatedText fade",
+      buttonEnabled: false
+    }));
   }
 
   render() {
@@ -48,7 +54,7 @@ class QuoteBox extends React.Component {
             <a id="tweet-quote" rel="noreferrer" target="_blank" href={this.getTwitterURL()} style={{backgroundColor: this.state.themeColor}} className={this.state.backgroundStyleClass}>
               <i className="fa fa-twitter"></i>
             </a>
-            <button id="new-quote" onClick={this.onNewQuoteClick} style={{backgroundColor: this.state.themeColor}} className={this.state.backgroundStyleClass}>New Quote</button>
+            <button id="new-quote" onClick={this.onNewQuoteClick} style={{backgroundColor: this.state.themeColor}} className={this.state.backgroundStyleClass} disabled={!this.state.buttonEnabled}>New Quote</button>
           </div>
         </div>
       </div>
