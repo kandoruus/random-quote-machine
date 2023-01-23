@@ -199,7 +199,7 @@ export const quotes = [
 {
        "quote":"Either write something worth reading or do something worth writing.","author":"Benjamin Franklin"},
 {
-       "quote":"Nothing is impossible, the word itself says, “I’m possible!”","author":"–Audrey Hepburn"},
+       "quote":"Nothing is impossible, the word itself says, “I’m possible!”","author":"Audrey Hepburn"},
 {
        "quote":"The only way to do great work is to love what you do.","author":"Steve Jobs"},
 {

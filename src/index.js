@@ -1,51 +1,55 @@
 import './index.css';
 import React from 'react';
+import ReactDOM from 'react-dom/client';
 import { createRoot } from 'react-dom/client';
 import { quotes, colors } from './rand-arrays.js';
+import { current } from '@reduxjs/toolkit';
 
 const twitterURLBase = 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=';
 
-const getRandomArrayElement = (arr) => {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-const updateTheme = () => {
-  const oldTheme = document.documentElement.style.getPropertyValue('--theme');
-  document.documentElement.style.setProperty('--theme', getRandomArrayElement(colors.filter(color => color !== oldTheme)));
+const getNewRandomArrayElement = (arr, prevRandElement) => {
+  const newArr = arr.filter(element => element !== prevRandElement);
+  return newArr[Math.floor(Math.random() * newArr.length)];
 }
 
 class QuoteBox extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      quoteData: getRandomArrayElement(quotes),
+      quoteData: getNewRandomArrayElement(quotes, null),
+      themeColor: getNewRandomArrayElement(colors, null),
+      textStyleClass: "animatedText fade",
+      backgroundStyleClass: "animatedBackground"
     }
-    document.documentElement.style.setProperty('--theme', getRandomArrayElement(colors));
     this.onNewQuoteClick = this.onNewQuoteClick.bind(this);
     this.getTwitterURL = this.getTwitterURL.bind(this);
+    this.onAnimationEnd = this.onAnimationEnd.bind(this);
   }
+
+  onAnimationEnd() {
+    this.setState({textStyleClass: "animatedText"});
+  };
 
   getTwitterURL() {
     return twitterURLBase + encodeURI('"' + this.state.quoteData.quote + '" ' + this.state.quoteData.author);
   }
 
   onNewQuoteClick() {
-    this.setState({
-      quoteData: getRandomArrayElement(quotes)
-    });
-    updateTheme();
+    this.setState(oldState => ({ quoteData: getNewRandomArrayElement(quotes, oldState.quoteData), themeColor: getNewRandomArrayElement(colors, oldState.themeColor), textStyleClass: "animatedText fade"}));
   }
 
   render() {
     return (
-      <div id="quote-box">
-        <div id="text"><i class="fa fa-quote-left"></i> {this.state.quoteData.quote}</div>
-        <div id="author">- {this.state.quoteData.author}</div>
-        <div id="buttons">
-          <a id="tweet-quote" rel="noreferrer" target="_blank" href={this.getTwitterURL()}>
-            <i className="fa fa-twitter"></i>
-          </a>
-          <button id="new-quote" onClick={this.onNewQuoteClick}>New Quote</button>
+      <div id="background" style={{backgroundColor: this.state.themeColor}} className={this.state.backgroundStyleClass}>
+        <div id="quote-box">
+          <div id="text" style={{color: this.state.themeColor}} className={this.state.textStyleClass} onAnimationEnd={this.onAnimationEnd}><i className="fa fa-quote-left"></i> {this.state.quoteData.quote}</div>
+          <div id="author" style={{color: this.state.themeColor}} className={this.state.textStyleClass} onAnimationEnd={this.onAnimationEnd}>- {this.state.quoteData.author}</div>
+          <div id="buttons">
+            <a id="tweet-quote" rel="noreferrer" target="_blank" href={this.getTwitterURL()} style={{backgroundColor: this.state.themeColor}} className={this.state.backgroundStyleClass}>
+              <i className="fa fa-twitter"></i>
+            </a>
+            <button id="new-quote" onClick={this.onNewQuoteClick} style={{backgroundColor: this.state.themeColor}} className={this.state.backgroundStyleClass}>New Quote</button>
+          </div>
         </div>
       </div>
     );
@@ -53,8 +57,7 @@ class QuoteBox extends React.Component {
 }
 
 
-const container = document.getElementById('wrapper');
-const root = createRoot(container);
+const root = ReactDOM.createRoot(document.getElementById('body'));
 
 root.render(
   <React.StrictMode>
