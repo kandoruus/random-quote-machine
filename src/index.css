@@ -23,19 +23,21 @@ body {
 #text {
   border: 0px solid black;
   color: var(--theme);
-  height: 8em;
-  font-size: 2em;
+  font-size: 1.75em;
+  text-align: center;
+  padding: 0em 0em 1em;
 }
 #author {
   border: 0px solid black;
   color: var(--theme);
   text-align: right;
-  font-size: 1.2em;
+  font-size: 1.1em;
+  padding: 0.5em 0em 1.2em;
 }
 #buttons {
-  border: 2px solid black;
+  border: 0px solid black;
   display: flex;
-  justify-content: first baseline;
+  justify-content:space-between;
   align-items: center;
 }
 #new-quote {
@@ -43,13 +45,19 @@ body {
   border: 0px solid black;
   color: white;
   background-color: var(--theme);
-  font-size: 1.2em;
-  height: 1.9em;
+  font-size: 0.9em;
+  height: 2.2em;
+  padding: 0em 1em;
 }
 #tweet-quote {
   border-radius: 3px;
   border: 0px solid black;
   color: white;
   background-color: var(--theme);
-  font-size: 2em;
+  font-size: 1.5em;
+  padding: 0.1em 0.25em;
+}
+#new-quote:hover, #tweet-quote:hover {
+  opacity: 0.9;
+  cursor: pointer;
 }

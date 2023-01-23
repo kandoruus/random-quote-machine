@@ -14,7 +14,6 @@ const updateTheme = () => {
   document.documentElement.style.setProperty('--theme', getRandomArrayElement(colors.filter(color => color !== oldTheme)));
 }
 
-
 class QuoteBox extends React.Component {
   constructor(props){
     super(props);
