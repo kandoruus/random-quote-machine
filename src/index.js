@@ -1,7 +1,7 @@
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { QuoteBox } from './QuoteBox_async_await.jsx';
+import { QuoteBox } from './QuoteBox_axios.tsx';
 
 const root = ReactDOM.createRoot(document.getElementById('body'));
 
