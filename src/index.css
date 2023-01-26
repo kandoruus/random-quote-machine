@@ -70,9 +70,13 @@ body {
   font-size: 1.5em;
   padding: 0.1em 0.25em;
 }
-#new-quote:hover, #tweet-quote:hover {
+#new-quote:hover:enabled, #tweet-quote:hover:enabled {
   opacity: 0.9;
   cursor: pointer;
+}
+#new-quote:disabled, #tweet-quote:disabled {
+  opacity: 0.5;
+  color: rgba(255, 255, 255, 0.5);
 }
 .fade {
   animation: textFadeIn var(--fadeTime) var(--fadeTiming) forwards;

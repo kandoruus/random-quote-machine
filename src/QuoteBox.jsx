@@ -1,12 +1,10 @@
 import './index.css';
-import './colorList.json';
+import colorListJSON from './colorList.json';
 import React from 'react';
 
 const twitterURLBase = 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=';
 
 const quotesSourceURL = 'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json';
-
-const colorSource = './colorList.json';
 
 const getNewRandomArrayElement = (arr, prevRandElement) => {
   const newArr = arr.filter(element => element !== prevRandElement);
@@ -18,14 +16,13 @@ export class QuoteBox extends React.Component {
     super(props);
     this.state = {
       quoteData: {quote: "", author: ""},
-      themeColor: "#000000",
-      textStyleClass: "animatedText",
+      themeColor: getNewRandomArrayElement(colorListJSON.colors, null),
+      textStyleClass: "animatedText fade",
       backgroundStyleClass: "animatedBackground",
       buttonEnabled: true,
       quoteList: [],
-      colorList: []
+      colorList: colorListJSON.colors
     };
-
     this.onNewQuoteClick = this.onNewQuoteClick.bind(this);
     this.getTwitterURL = this.getTwitterURL.bind(this);
     this.onAnimationEnd = this.onAnimationEnd.bind(this);
@@ -33,13 +30,9 @@ export class QuoteBox extends React.Component {
 
   componentDidMount() {
     fetch(quotesSourceURL).then(response => response.json()).then(quotesFromJSON => {
-      fetch(colorSource).then(response => response.json()).then(colorsFromJSON => {
-        this.setState({
-          quoteData: getNewRandomArrayElement(quotesFromJSON, null),
-          themeColor: getNewRandomArrayElement(colorsFromJSON, null),
-          quoteList: quotesFromJSON,
-          colorList: colorsFromJSON
-        });
+      this.setState({
+        quoteData: getNewRandomArrayElement(quotesFromJSON.quotes, null),
+        quoteList: quotesFromJSON.quotes,
       });
     });
   }
