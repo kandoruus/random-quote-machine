@@ -1,26 +1,12 @@
 import './index.css';
+import './colorList.json';
 import React from 'react';
 
 const twitterURLBase = 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=';
 
 const quotesSourceURL = 'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json';
 
-const colors = [
-  '#16a085',
-  '#27ae60',
-  '#2c3e50',
-  '#f39c12',
-  '#e74c3c',
-  '#9b59b6',
-  '#FB6964',
-  '#342224',
-  '#472E32',
-  '#BDBB99',
-  '#77B1A9',
-  '#73A857'
-];
-
-let quotes;
+const colorSource = './colorList.json';
 
 const getNewRandomArrayElement = (arr, prevRandElement) => {
   const newArr = arr.filter(element => element !== prevRandElement);
@@ -32,10 +18,12 @@ export class QuoteBox extends React.Component {
     super(props);
     this.state = {
       quoteData: {quote: "", author: ""},
-      themeColor: getNewRandomArrayElement(colors, null),
+      themeColor: "#000000",
       textStyleClass: "animatedText",
       backgroundStyleClass: "animatedBackground",
-      buttonEnabled: false,
+      buttonEnabled: true,
+      quoteList: [],
+      colorList: []
     };
 
     this.onNewQuoteClick = this.onNewQuoteClick.bind(this);
@@ -45,12 +33,14 @@ export class QuoteBox extends React.Component {
 
   componentDidMount() {
     fetch(quotesSourceURL).then(response => response.json()).then(quotesFromJSON => {
-      quotes = quotesFromJSON.quotes;
-      this.setState(oldState => ({
-        quoteData: getNewRandomArrayElement(quotes, oldState.quoteData),
-        textStyleClass: "animatedText fade",
-        buttonEnabled: false
-      }));
+      fetch(colorSource).then(response => response.json()).then(colorsFromJSON => {
+        this.setState({
+          quoteData: getNewRandomArrayElement(quotesFromJSON, null),
+          themeColor: getNewRandomArrayElement(colorsFromJSON, null),
+          quoteList: quotesFromJSON,
+          colorList: colorsFromJSON
+        });
+      });
     });
   }
   
@@ -64,8 +54,8 @@ export class QuoteBox extends React.Component {
 
   onNewQuoteClick() {
     this.setState(oldState => ({
-      quoteData: getNewRandomArrayElement(quotes, oldState.quoteData),
-      themeColor: getNewRandomArrayElement(colors, oldState.themeColor),
+      quoteData: getNewRandomArrayElement(oldState.quoteList, oldState.quoteData),
+      themeColor: getNewRandomArrayElement(oldState.colorList, oldState.themeColor),
       textStyleClass: "animatedText fade",
       buttonEnabled: false
     }));
