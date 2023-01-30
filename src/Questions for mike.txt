@@ -9,3 +9,5 @@ redo create-react-app find flag to make it typescript project
 .jsx for react files
 
 why is DOM manipulation bad? async related?
+
+TS interface/ type
