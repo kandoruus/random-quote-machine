@@ -2,18 +2,14 @@ import './index.css';
 import colorListJSON from './colorList.json';
 import React from 'react';
 import axios from 'axios';
+import { getNewRandomArrayElement } from './helperFunctions';
 
 const twitterURLBase = 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=';
 
 const quotesSourceURL = 'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json';
 
-const getNewRandomArrayElement = (arr, prevRandElement) => {
-  const newArr = arr.filter(element => element !== prevRandElement);
-  return newArr[Math.floor(Math.random() * newArr.length)];
-}
-
-export class QuoteBox extends React.Component <{}, { quoteData: {quote: string, author: string }, themeColor: string, textStyleClass: string, backgroundStyleClass: string, buttonEnabled: boolean, quoteList: Array<object>, colorList: Array<string>}> {
-  constructor(props){
+export class QuoteBox extends React.Component <{}, { quoteData: {quote: string, author: string }, themeColor: string, textStyleClass: string, backgroundStyleClass: string, buttonEnabled: boolean, quoteList: Array<{quote: string, author: string }>, colorList: Array<string>}> {
+  constructor(props: any){
     super(props);
     this.state = {
       quoteData: {quote: "", author: ""},
@@ -33,7 +29,7 @@ export class QuoteBox extends React.Component <{}, { quoteData: {quote: string, 
   async loadQuotes () {
     const quotesListJSON = await axios.get(quotesSourceURL);
     this.setState({
-      quoteData: getNewRandomArrayElement(quotesListJSON.data.quotes, null),
+      quoteData: getNewRandomArrayElement<{quote: string, author: string}>(quotesListJSON.data.quotes, null),
       quoteList: quotesListJSON.data.quotes,
     });
   }
@@ -52,7 +48,7 @@ export class QuoteBox extends React.Component <{}, { quoteData: {quote: string, 
 
   onNewQuoteClick() {
     this.setState(oldState => ({
-      quoteData: getNewRandomArrayElement(oldState.quoteList, oldState.quoteData),
+      quoteData: getNewRandomArrayElement<{quote: string, author: string}>(oldState.quoteList, oldState.quoteData),
       themeColor: getNewRandomArrayElement(oldState.colorList, oldState.themeColor),
       textStyleClass: "animatedText fade",
       buttonEnabled: false
